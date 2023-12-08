@@ -1,0 +1,13 @@
+git init
+
+git config --Global user.email="abc@gmail.com"
+
+git config --Global user.name="Your Name"
+
+git add  / git add filename
+
+git status
+
+git commit -m "initial commit"
+
+git push origin main

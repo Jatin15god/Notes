@@ -1,0 +1,84 @@
+to play sound
+{
+# Create a new SpVoice objects
+$voice = New-Object -ComObject Sapi.spvoice
+
+# Set the speed - positive numbers are faster, negative numbers, slower
+$voice.rate = 0
+
+# Say something
+$voice.speak("Hey, Harcot, your BAT file is finished!")
+}
+
+Another text-to-speech approach
+{
+Add-Type -AssemblyName System.Speech
+$synth = New-Object -TypeName System.Speech.Synthesis.SpeechSynthesizer
+$synth.Speak("Hey $env:USERNAME, your job is finished!")
+
+Customization :
+
+voice -
+$synth.SelectVoice("Microsoft Zira Desktop")
+[select voice]
+$synth.GetInstalledVoices() | Select-Object -ExpandProperty VoiceInfo
+[checks available voices]
+
+rate -
+$synth.Rate = 5
+[upto 10]
+
+volume -
+$synth.Volume = 75
+[upto 100]
+}
+
+to play system sound
+{
+[System.Media.SystemSounds]::Asterisk.Play()
+[System.Media.SystemSounds]::Beep.Play()
+[System.Media.SystemSounds]::Exclamation.Play()
+[System.Media.SystemSounds]::Hand.Play()
+[System.Media.SystemSounds]::Question.Play()
+}
+
+to play custom sounds
+{
+$PlayWav=New-Object System.Media.SoundPlayer
+
+$PlayWav.SoundLocation=’C:\Foo\Soundfile.wav’
+
+$PlayWav.playsync()
+}
+
+to play music
+{
+powershell -c (New-Object Media.SoundPlayer "Track.mp3").Play();
+}
+{
+# Play a single file
+Add-Type -AssemblyName presentationCore
+$mediaPlayer = New-Object system.windows.media.mediaplayer
+$mediaPlayer.open('C:\sounds\bike.mp3')
+$mediaPlayer.Play()
+}
+{
+form url
+
+$MediaPlayer = [Windows.Media.Playback.MediaPlayer, Windows.Media, ContentType = WindowsRuntime]::New()
+$MediaPlayer.Source = [Windows.Media.Core.MediaSource]::CreateFromUri('https://nyanpass.com/nyanpass.mp3')
+$MediaPlayer.Play()
+
+from file
+
+$MediaPlayer = [Windows.Media.Playback.MediaPlayer, Windows.Media, ContentType = WindowsRuntime]::New()
+$MediaPlayer.Source = [Windows.Media.Core.MediaSource]::CreateFromUri('C:\Users\Admin\Downloads\nyanpass.mp3')
+$MediaPlayer.Play()
+}
+{
+only for wav files
+
+$Song = New-Object System.Media.SoundPlayer
+$Song.SoundLocation = "path\to\track.wav"
+$Song.Play()
+}
